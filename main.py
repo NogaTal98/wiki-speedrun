@@ -8,6 +8,7 @@ if __name__ == "__main__":
 
     desired_word = input("Enter the desired word: ")
 
+    history = []
     for i in range(10):
         page_links_dict = scraper.scrap_page()
         page_links_list = list(page_links_dict.keys())
@@ -17,10 +18,19 @@ if __name__ == "__main__":
             print("ERROR!: " + semantic_rates)
             break
 
-        max_rate = max(semantic_rates)
-        max_rate_index = semantic_rates.index(max_rate)
-        max_rated_word = page_links_list[max_rate_index]
-        max_rated_url = page_links_dict[page_links_list[max_rate_index]]
+        page_links_list = [x for _, x in sorted(zip(semantic_rates, page_links_list), reverse=True)]
+        semantic_rates.sort(reverse=True)
+
+        j = 0
+        max_rated_word = page_links_list[j]
+        while max_rated_word in history and j < len(page_links_list) - 1:
+            j += 1
+            max_rated_word = page_links_list[j]
+        max_rated_url = page_links_dict[page_links_list[j]]
+        max_rate = semantic_rates[j]
+
+        history.append(max_rated_word)
+
         print(max_rated_word, max_rated_url, max_rate)
         url = "https://en.wikipedia.org" + max_rated_url
         scraper = Scraper(url)

@@ -64,7 +64,7 @@ class Scraper:
                 key = val.split("/wiki/")[-1].replace("_", " ")
                 result_dict[key] = val
 
-            return result_dict
+        return result_dict
 
     def get_page_title(self):
         title = self.soup.find("title").text
