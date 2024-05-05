@@ -52,9 +52,12 @@ def scrap_page(URL: str):
 
     result_dict = {}
     for link_element in link_elements:
+        if link_element.text == "":
+            continue
         if link_element.text.startswith("[") and link_element.text.endswith("]"):
             continue
         if "href" in link_element.attrs:
-            result_dict[link_element.text] = link_element["href"]
+            if link_element["href"].startswith("/wiki/"):
+                result_dict[link_element.text] = link_element["href"]
 
     return result_dict
