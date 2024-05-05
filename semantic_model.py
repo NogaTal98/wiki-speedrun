@@ -13,11 +13,19 @@ def get_semantic_rate(word: str, words_arr: list[str]):
         response = requests.post(API_URL, headers=headers, json=payload)
         return response.json()
 
-    output = query({
-        "inputs": {
-            "source_sentence": word,
-            "sentences": words_arr
-        },
-    })
+    output = None
+    for i in range(2):
+        output = query({
+            "inputs": {
+                "source_sentence": word,
+                "sentences": words_arr
+            },
+        })
+        if isinstance(output, list):
+            return output
+        print("Could not get a response, trying again...")
+
+    if isinstance(output, dict):
+        return output["error"]
 
     return output
