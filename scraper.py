@@ -56,8 +56,11 @@ def scrap_page(URL: str):
             continue
         if link_element.text.startswith("[") and link_element.text.endswith("]"):
             continue
-        if "href" in link_element.attrs:
-            if link_element["href"].startswith("/wiki/"):
-                result_dict[link_element.text] = link_element["href"]
+        if "href" in link_element.attrs and link_element["href"].startswith("/wiki/"):
+            if ":" in link_element["href"]:
+                continue
+            val = link_element["href"]
+            key = val.split("/wiki/")[-1].replace("_", " ")
+            result_dict[key] = val
 
     return result_dict
