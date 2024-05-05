@@ -1,13 +1,15 @@
-from scraper import scrap_page
+from scraper import Scraper
 from semantic_model import get_semantic_rate
 
 if __name__ == "__main__":
-    url = "https://en.wikipedia.org/wiki/Cantor%27s_theorem"
+    url = "https://en.wikipedia.org/wiki/Special:Random"
+    scraper = Scraper(url)
+    print("Random page chosen is: ", scraper.get_page_title())
 
     desired_word = input("Enter the desired word: ")
 
     for i in range(10):
-        page_links_dict = scrap_page(url)
+        page_links_dict = scraper.scrap_page()
         page_links_list = list(page_links_dict.keys())
 
         semantic_rates = get_semantic_rate(desired_word, page_links_list)
@@ -21,6 +23,7 @@ if __name__ == "__main__":
         max_rated_url = page_links_dict[page_links_list[max_rate_index]]
         print(max_rated_word, max_rated_url, max_rate)
         url = "https://en.wikipedia.org" + max_rated_url
+        scraper = Scraper(url)
 
         if max_rated_word.lower() == desired_word.lower():
             print("Found the desired word: ", max_rated_word, " after ", i+1, " iterations")

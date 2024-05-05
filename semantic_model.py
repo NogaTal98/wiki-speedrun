@@ -25,7 +25,7 @@ def get_semantic_rate(word: str, words_arr: list[str]):
         if isinstance(output, list):
             return output
         print("Could not get a response, trying again...")
-        time.sleep(1)
+        time.sleep(5)
 
     if isinstance(output, dict):
         return output["error"]
