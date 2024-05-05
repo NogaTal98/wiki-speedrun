@@ -9,7 +9,7 @@ if __name__ == "__main__":
     desired_word = input("Enter the desired word: ")
 
     history = []
-    for i in range(10):
+    for i in range(20):
         page_links_dict = scraper.scrap_page()
         page_links_list = list(page_links_dict.keys())
 

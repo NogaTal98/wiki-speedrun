@@ -15,7 +15,7 @@ def get_semantic_rate(word: str, words_arr: list[str]):
         return response.json()
 
     output = None
-    for i in range(2):
+    for i in range(4):
         output = query({
             "inputs": {
                 "source_sentence": word,
