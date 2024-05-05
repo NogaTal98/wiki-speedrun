@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 
@@ -24,6 +25,7 @@ def get_semantic_rate(word: str, words_arr: list[str]):
         if isinstance(output, list):
             return output
         print("Could not get a response, trying again...")
+        time.sleep(1)
 
     if isinstance(output, dict):
         return output["error"]
