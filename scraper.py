@@ -7,12 +7,12 @@ def exclude(x):
     if x.name == "meta":
         return True
 
-    if x.name == "h2" or x.name == "ul" or x.name == "figure":
+    if x.name == "h2" or x.name == "h3" or x.name == "ul" or x.name == "figure":
         return False
 
     try:
         x_class = x.get("class")
-        excluded_list = ["side-box", "navbox", "citation", "reflist"]
+        excluded_list = ["side-box", "navbox", "citation", "reflist", "sidebar"]
 
         if x_class is None:
             return True
