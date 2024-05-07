@@ -1,12 +1,30 @@
 import React from "react";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+  import { Line } from 'react-chartjs-2';
 
-function ShowRace({ next_word, max_rate, history, url }) {
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+function ShowRace({ chartData }) {
     return (
-      <div className="shoRace">
-        <div>next_word: {next_word}</div>
-        <div>max_rate: {max_rate}</div>
-        <div>history: {history}</div>
-        <div>url: {url}</div>
+      <div className="showRace">
+        <Line data={chartData} />
       </div>
     );
   }

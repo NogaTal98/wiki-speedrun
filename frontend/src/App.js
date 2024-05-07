@@ -7,9 +7,19 @@ function App() {
   const [url, setUrl] = useState("");
   const [desiredWord, setDesiredWord] = useState("");
   const [history, setHistory] = useState([]);
-  const [max_rate, setMaxRate] = useState(0);
-  const [next_word, setNextWord] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
+
+  const [chartData, setChartData] = useState({
+    labels: [], 
+    datasets: [
+      {
+        label: "semantic rate",
+        data: [],
+        borderColor: "black",
+        borderWidth: 2
+      }
+    ]
+  });
 
   const NUM_OF_ITERATIONS = 20;
 
@@ -58,13 +68,18 @@ function App() {
           }
           setUrl(output.url)
           setHistory(output.history)
-          setMaxRate(output.max_rate)
-          setNextWord(output.max_rated_word)
-            runTimes++;
-            console.log("runTimes: ", runTimes);
-            if (runTimes < NUM_OF_ITERATIONS) {
-                runFetch(output); 
-            }
+
+          // update chart data
+          let newChartData = chartData;
+          newChartData.labels = output.history;
+          newChartData.datasets[0].data.push(output.max_rate);
+          setChartData(newChartData);
+
+          runTimes++;
+          console.log("runTimes: ", runTimes);
+          if (runTimes < NUM_OF_ITERATIONS) {
+              runFetch(output); 
+          }
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -79,7 +94,7 @@ function App() {
   return (
     <div className="App">
       {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
-       <ShowRace next_word={next_word} max_rate={max_rate} history={history} url={url}/> }
+       <ShowRace chartData={chartData}/> }
 
     </div>
   );
