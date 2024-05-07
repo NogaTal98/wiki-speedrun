@@ -8,6 +8,8 @@ function App() {
   const [max_rate, setMaxRate] = useState(0);
   const [next_word, setNextWord] = useState("");
 
+  const NUM_OF_ITERATIONS = 20;
+
   function handleUrlChange(event) {
     setUrl(event.target.value);
   }
@@ -34,13 +36,17 @@ function App() {
       })
         .then(response => response.json())
         .then(output => {
+          if (output.error !== undefined) {
+            console.log("error: ", output.error);
+            runTimes = NUM_OF_ITERATIONS+1;
+          }
           setUrl(output.url)
           setHistory(output.history)
           setMaxRate(output.max_rate)
           setNextWord(output.max_rated_word)
             runTimes++;
             console.log("runTimes: ", runTimes);
-            if (runTimes < 20) {
+            if (runTimes < NUM_OF_ITERATIONS) {
                 runFetch(output); 
             }
         })
