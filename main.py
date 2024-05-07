@@ -1,40 +1,42 @@
+import requests
+
+from game_flow import get_next_page
 from scraper import Scraper
 from semantic_model import get_semantic_rate
 
 if __name__ == "__main__":
     url = "https://en.wikipedia.org/wiki/Special:Random"
-    scraper = Scraper(url)
-    print("Random page chosen is: ", scraper.get_page_title())
+    # scraper = Scraper(url)
+    # print("Random page chosen is: ", scraper.get_page_title())
 
     desired_word = input("Enter the desired word: ")
 
-    history = []
-    for i in range(50):
-        page_links_dict = scraper.scrap_page()
-        page_links_list = list(page_links_dict.keys())
+    input_data = {
+        "desired_word": desired_word,
+        "url": url,
+        "history": []
+    }
 
-        semantic_rates = get_semantic_rate(desired_word, page_links_list)
-        if isinstance(semantic_rates, str):
-            print("ERROR!: " + semantic_rates)
+    for i in range(50):
+        res = requests.post("http://127.0.0.1:5000/get_next_page", json=input_data)
+
+        if res.status_code != 200:
+            print("Error: ", res.reason)
             break
 
-        page_links_list = [x for _, x in sorted(zip(semantic_rates, page_links_list), reverse=True)]
-        semantic_rates.sort(reverse=True)
+        next_word = res.json()["max_rated_word"]
+        next_url = res.json()["url"]
+        max_rate = res.json()["max_rate"]
+        history = res.json()["history"]
 
-        j = 0
-        max_rated_word = page_links_list[j]
-        while max_rated_word in history and j < len(page_links_list) - 1:
-            j += 1
-            max_rated_word = page_links_list[j]
-        max_rated_url = page_links_dict[page_links_list[j]]
-        max_rate = semantic_rates[j]
+        print(next_word, next_url, max_rate)
 
-        history.append(max_rated_word)
+        input_data = {
+            "desired_word": desired_word,
+            "url": next_url,
+            "history": history
+        }
 
-        print(max_rated_word, max_rated_url, max_rate)
-        url = "https://en.wikipedia.org" + max_rated_url
-        scraper = Scraper(url)
-
-        if max_rated_word.lower() == desired_word.lower():
-            print("Found the desired word: ", max_rated_word, " after ", i+1, " iterations")
+        if next_word.lower() == desired_word.lower():
+            print("Found the desired word: ", next_word, " after ", i+1, " iterations")
             break
