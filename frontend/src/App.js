@@ -1,5 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import InputPage from './components/InputPage';
+import ShowRace from './components/ShowRace';
 
 function App() {
   const [url, setUrl] = useState("");
@@ -7,18 +9,32 @@ function App() {
   const [history, setHistory] = useState([]);
   const [max_rate, setMaxRate] = useState(0);
   const [next_word, setNextWord] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
 
   const NUM_OF_ITERATIONS = 20;
 
-  function handleUrlChange(event) {
+  const handleUrlChange = (event) => {
     setUrl(event.target.value);
   }
 
-  function handleDesiredWordChange(event) {
+  const handleDesiredWordChange = (event) => {
     setDesiredWord(event.target.value);
   }
 
-  const buttonClick = () => {
+
+  const startRace = () => {
+    if (url === "" || desiredWord === "") {
+      alert("url or desired word is empty");
+      return;
+    }
+
+    if (url.startsWith("https://en.wikipedia.org/wiki/") === false) {
+      alert("url is not from wikipedia");
+      return;
+    }
+
+    setCurrentPage(1);
+
     let runTimes = 0;
     const runFetch = (data) => {
       fetch("https://NogaTal.pythonanywhere.com/get_next_page", {
@@ -62,17 +78,9 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <label>URL:</label>
-        <input type="text" id="url" name="url" onChange={handleUrlChange}></input>
-        <label>Desired word:</label>
-        <input type="text" id="desired_word" name="desired_word" onChange={handleDesiredWordChange}></input>
-        <button onClick={buttonClick}>Click me</button>
-      </div>
-      <div>next_word: {next_word}</div>
-      <div>max_rate: {max_rate}</div>
-      <div>history: {history}</div>
-      <div>url: {url}</div>
+      {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
+       <ShowRace next_word={next_word} max_rate={max_rate} history={history} url={url}/> }
+
     </div>
   );
 }
