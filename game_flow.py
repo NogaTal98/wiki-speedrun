@@ -1,8 +1,10 @@
 from scraper import Scraper
 from semantic_model import get_semantic_rate
 from flask import Flask, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # to run the server, run the following command in the terminal:
 # flask --app game_flow.py run
@@ -38,6 +40,7 @@ def get_next_page():
 
     next_value = {"max_rated_word": max_rated_word, "url":  url, "max_rate": max_rate,"history": history}
     return next_value
+
 
 # def getFullPagesList(page):
 #     return True
