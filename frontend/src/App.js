@@ -1,8 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
-    function buttonClick() {
+  const [url, setUrl] = useState("");
+  const [desiredWord, setDesiredWord] = useState("");
+  const [history, setHistory] = useState([]);
+  const [max_rate, setMaxRate] = useState(0);
+  const [next_word, setNextWord] = useState("");
+
+  function handleUrlChange(event) {
+    setUrl(event.target.value);
+  }
+
+  function handleDesiredWordChange(event) {
+    setDesiredWord(event.target.value);
+  }
+
+  const buttonClick = () => {
+    let runTimes = 0;
+    const runFetch = (data) => {
       fetch("https://NogaTal.pythonanywhere.com/get_next_page", {
         method: "POST",
         mode: "cors",
@@ -11,25 +27,46 @@ function App() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          "desired_word": "dog",
-          "url": "https://en.wikipedia.org/wiki/Special:Random",
-          "history": []
+          "desired_word": desiredWord,
+          "url": data.url,
+          "history": data.history
+        })
       })
-      }).then(response => {
-        if (response.status === 200 && response.status < 300) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong. Status code: " + response.status);
-        }
-      }).then(data => {
-        console.log(data);
-      }).catch(error => {
-        console.error(error);
-      })
+        .then(response => response.json())
+        .then(output => {
+          setUrl(output.url)
+          setHistory(output.history)
+          setMaxRate(output.max_rate)
+          setNextWord(output.max_rated_word)
+            runTimes++;
+            console.log("runTimes: ", runTimes);
+            if (runTimes < 20) {
+                runFetch(output); 
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+    runFetch({
+      "desired_word": desiredWord,
+      "url": url,
+      "history": history});
   }
+
   return (
     <div className="App">
-      <button onClick={buttonClick}>Click me</button>
+      <div>
+        <label>URL:</label>
+        <input type="text" id="url" name="url" onChange={handleUrlChange}></input>
+        <label>Desired word:</label>
+        <input type="text" id="desired_word" name="desired_word" onChange={handleDesiredWordChange}></input>
+        <button onClick={buttonClick}>Click me</button>
+      </div>
+      <div>next_word: {next_word}</div>
+      <div>max_rate: {max_rate}</div>
+      <div>history: {history}</div>
+      <div>url: {url}</div>
     </div>
   );
 }
