@@ -75,6 +75,10 @@ function App() {
           newChartData.datasets[0].data.push(output.max_rate);
           setChartData(newChartData);
 
+          if (output.history[output.history.length-1].toLowerCase() == desiredWord.toLowerCase()) {
+            runTimes = NUM_OF_ITERATIONS+1;
+          }
+
           runTimes++;
           console.log("runTimes: ", runTimes);
           if (runTimes < NUM_OF_ITERATIONS) {
