@@ -2,17 +2,20 @@ import React from 'react';
 
 function InputPage({handleUrlChange, handleDesiredWordChange, startRace}) {
     return (
-      <div className="page">
+      <div className="input-page">
         <div className='title'>
-          welcome to wiki speedRun!
+          Wiki Speed Run!
+          <div className='description'>
+              An AI agent that mimicks the famous wikipedia game
+          </div>
         </div>
         <div className='form'>
           <div className='form-input'>
-            <label>Strating page URL</label><br/>
-            <input type="text" id="url" name="url" onChange={handleUrlChange}></input>
+            <label>Entar the strating page URL</label><br/>
+            <input type="text" id="url" name="url" placeholder="https://en.wikipedia.org/wiki/..."onChange={handleUrlChange}></input>
           </div>
           <div className='form-input'>
-            <label>Desired word</label><br/>
+            <label>Enter your desired word</label><br/>
             <input type="text" id="desired_word" name="desired_word" onChange={handleDesiredWordChange}></input>
           </div>
         </div>

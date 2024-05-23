@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import InputPage from './components/InputPage';
 import ShowRace from './components/ShowRace';
+import logo from './wiki-speedrun-logo.png';
 
 function App() {
   const [url, setUrl] = useState("");
@@ -102,8 +103,11 @@ function App() {
 
   return (
     <div className="App">
-      {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
-      <ShowRace chartData={chartData} runAgain={runAgain}/> }
+      <div className='page'>
+        <img src={logo} className="logo"/>
+        {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
+        <ShowRace chartData={chartData} runAgain={runAgain}/> }
+      </div>
     </div>
   );
 }

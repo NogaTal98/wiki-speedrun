@@ -23,7 +23,7 @@ import {
 
 function ShowRace({ chartData, runAgain }) {
     return (
-      <div className="page">
+      <div className="show-page">
         <Line data={chartData} />
         <div onClick={runAgain} className='start-btn'>Run again</div>
       </div>
