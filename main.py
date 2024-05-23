@@ -18,7 +18,7 @@ if __name__ == "__main__":
     }
 
     for i in range(50):
-        res = requests.post("http://127.0.0.1:5000/get_next_page", json=input_data)
+        res = requests.post("http://NogaTal.pythonanywhere.com/get_next_page", json=input_data)
 
         if res.status_code != 200:
             print("Error: ", res.reason)
