@@ -21,10 +21,11 @@ import {
     Legend
   );
 
-function ShowRace({ chartData }) {
+function ShowRace({ chartData, runAgain }) {
     return (
-      <div className="showRace">
+      <div className="show-page">
         <Line data={chartData} />
+        <div onClick={runAgain} className='start-btn'>Run again</div>
       </div>
     );
   }
