@@ -95,10 +95,15 @@ function App() {
       "history": history});
   }
 
+  const runAgain = () => {
+    setCurrentPage(0)
+    document.location.reload(true)
+  }
+
   return (
     <div className="App">
       {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
-      <ShowRace chartData={chartData}/> }
+      <ShowRace chartData={chartData} runAgain={runAgain}/> }
     </div>
   );
 }
