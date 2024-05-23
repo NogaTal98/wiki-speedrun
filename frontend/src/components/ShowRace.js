@@ -23,7 +23,7 @@ import {
 
 function ShowRace({ chartData }) {
     return (
-      <div className="showRace">
+      <div className="page">
         <Line data={chartData} />
       </div>
     );

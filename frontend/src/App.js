@@ -98,8 +98,7 @@ function App() {
   return (
     <div className="App">
       {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
-       <ShowRace chartData={chartData}/> }
-
+      <ShowRace chartData={chartData}/> }
     </div>
   );
 }
