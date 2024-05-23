@@ -17,7 +17,7 @@ function InputPage({handleUrlChange, handleDesiredWordChange, startRace}) {
           </div>
         </div>
         <div className='submit'>
-          <button onClick={startRace}>Click me</button>
+          <div onClick={startRace} className='start-btn'>Start the race!</div>
         </div>
       </div>
     );
