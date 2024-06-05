@@ -62,28 +62,39 @@ function App() {
         })
       })
         .then(response => response.json())
-        .then(output => {
-          if (output.error !== undefined) {
-            console.log("error: ", output.error);
+        .then(result => {
+          if (result.error !== undefined) {
+            console.log("error((((())))): ", result.error);
             runTimes = NUM_OF_ITERATIONS+1;
           }
-          setUrl(output.url)
-          setHistory(output.history)
+          let history = result.result
+          setHistory(history)
+          let newWord = history[history.length-1]
+          console.log(history);
+          setUrl(newWord.url);
 
           // update chart data
           let newChartData = chartData;
-          newChartData.labels = output.history;
-          newChartData.datasets[0].data.push(output.max_rate);
+          newChartData.labels = history.map((word) => word.word);
+          if (history.length == 2) {
+            newChartData.datasets[0].data.push(history[0].rate, newWord.rate);
+          } else {
+            newChartData.datasets[0].data.push(newWord.rate);
+          }
           setChartData(newChartData);
 
-          if (output.history[output.history.length-1].toLowerCase() == desiredWord.toLowerCase()) {
+          if (newWord.word.toLowerCase() == desiredWord.toLowerCase()) {
             runTimes = NUM_OF_ITERATIONS+1;
           }
 
           runTimes++;
           console.log("runTimes: ", runTimes);
           if (runTimes < NUM_OF_ITERATIONS) {
-              runFetch(output); 
+              runFetch({
+                "desired_word": desiredWord,
+                "url": newWord.url,
+                "history": history
+              }); 
           }
         })
         .catch((error) => {

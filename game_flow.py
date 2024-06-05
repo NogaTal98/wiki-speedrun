@@ -22,6 +22,10 @@ def get_next_page():
         page_links_dict = scraper.scrap_page()
         page_links_list = list(page_links_dict.keys())
 
+        if len(history) == 0:
+            input_word = scraper.get_page_title()
+            history.append({"word": input_word, "url": url, "rate": get_semantic_rate(desired_word, [input_word])[0]})
+
         if len(page_links_list) == 0:
             return {"error": "No links found in the page"}
 
@@ -35,18 +39,22 @@ def get_next_page():
 
         j = 0
         max_rated_word = page_links_list[j]
-        while max_rated_word in history and j < len(page_links_list) - 1:
+
+        history_words = [x["word"] for x in history]
+        
+        # skip words that are already in the history
+        while max_rated_word in history_words and j < len(page_links_list) - 1:
             j += 1
             max_rated_word = page_links_list[j]
-        max_rated_url = page_links_dict[page_links_list[j]]
+
+        max_rated_url = "https://en.wikipedia.org" +page_links_dict[max_rated_word]
         max_rate = semantic_rates[j]
 
-        history.append(max_rated_word)
+        history.append({"word": max_rated_word, "url": max_rated_url, "rate": max_rate})
 
-        url = "https://en.wikipedia.org" + max_rated_url
-
-        next_value = {"max_rated_word": max_rated_word, "url":  url, "max_rate": max_rate,"history": history}
-        return next_value
+        #next_value = {"max_rated_word": max_rated_word, "url":  max_rated_url, "max_rate": max_rate,"history": history}
+        return {"result": history}
+    
     except Exception as e:
         return {"error": str(e)}
 

@@ -72,8 +72,8 @@
 }
 
 .start-btn {
-  width: 10vw;
   height: 5vh;
+  width: 10vw;
 
   border-radius: 8px;
   border: 1px solid black;
@@ -86,6 +86,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+@media screen and (max-width: 710px) {
+  .start-btn {
+    height: 10vh;
+    width: 20vw;
+  }
 }
 
 .start-btn:hover {
@@ -106,5 +113,5 @@ input {
 }
 
 .logo {
-  width: 5vw;
+  width: 20%;
 }
