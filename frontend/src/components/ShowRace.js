@@ -21,10 +21,27 @@ import {
     Legend
   );
 
+  let options = {
+    plugins: {
+      title: {
+        display: true,
+        text: 'Hover with the mouse to see the words'
+      },
+      legend: {
+        display: false
+        }
+    },
+    scales: {
+      x: {
+        display: false
+      }
+    }
+  }
+
 function ShowRace({ chartData, runAgain }) {
     return (
       <div className="show-page">
-        <Line data={chartData} />
+        <Line data={chartData}  options={options} />
         <div onClick={runAgain} className='start-btn'>Run again</div>
       </div>
     );
