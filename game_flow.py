@@ -23,7 +23,7 @@ def get_next_page():
         page_links_list = list(page_links_dict.keys())
 
         if len(history) == 0:
-            input_word = scraper.get_page_title()
+            input_word = url.split("/")[-1]
             history.append({"word": input_word, "url": url, "rate": get_semantic_rate(desired_word, [input_word])[0]})
 
         if len(page_links_list) == 0:
@@ -41,7 +41,7 @@ def get_next_page():
         max_rated_word = page_links_list[j]
 
         history_words = [x["word"] for x in history]
-        
+
         # skip words that are already in the history
         while max_rated_word in history_words and j < len(page_links_list) - 1:
             j += 1
@@ -54,7 +54,6 @@ def get_next_page():
 
         #next_value = {"max_rated_word": max_rated_word, "url":  max_rated_url, "max_rate": max_rate,"history": history}
         return {"result": history}
-    
     except Exception as e:
         return {"error": str(e)}
 

@@ -5,7 +5,9 @@ import ShowRace from './components/ShowRace';
 import logo from './wiki-speedrun-logo.png';
 
 function App() {
-  const [url, setUrl] = useState("");
+  const preUrl = "https://en.wikipedia.org/wiki/";
+
+  const [startingWord, setUrl] = useState("");
   const [desiredWord, setDesiredWord] = useState("");
   const [history, setHistory] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -34,15 +36,12 @@ function App() {
 
 
   const startRace = () => {
-    if (url === "" || desiredWord === "") {
-      alert("url or desired word is empty");
+    if (startingWord === "" || desiredWord === "") {
+      alert("starting or desired word is empty");
       return;
     }
 
-    if (url.startsWith("https://en.wikipedia.org/wiki/") === false) {
-      alert("url is not from wikipedia");
-      return;
-    }
+    let url = preUrl + startingWord;
 
     setCurrentPage(1);
 
@@ -64,7 +63,7 @@ function App() {
         .then(response => response.json())
         .then(result => {
           if (result.error !== undefined) {
-            console.log("error((((())))): ", result.error);
+            console.log("error: ", result.error);
             runTimes = NUM_OF_ITERATIONS+1;
           }
           let history = result.result
@@ -101,6 +100,7 @@ function App() {
             console.error('Error:', error);
         });
     }
+
     runFetch({
       "desired_word": desiredWord,
       "url": url,
@@ -116,7 +116,7 @@ function App() {
     <div className="App">
       <div className='page'>
         <img src={logo} className="logo"/>
-        {currentPage === 0 ? <InputPage handleUrlChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
+        {currentPage === 0 ? <InputPage handleStartingWordChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
         <ShowRace chartData={chartData} runAgain={runAgain}/> }
       </div>
     </div>

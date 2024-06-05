@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InputPage({handleUrlChange, handleDesiredWordChange, startRace}) {
+function InputPage({handleStartingWordChange, handleDesiredWordChange, startRace}) {
     return (
       <div className="input-page">
         <div className='title'>
@@ -11,8 +11,8 @@ function InputPage({handleUrlChange, handleDesiredWordChange, startRace}) {
         </div>
         <div className='form'>
           <div className='form-input'>
-            <label>Entar the strating page URL</label><br/>
-            <input type="text" id="url" name="url" placeholder="https://en.wikipedia.org/wiki/..."onChange={handleUrlChange}></input>
+            <label>Entar your starting word</label><br/>
+            <input type="text" id="starting_word" name="starting_word" onChange={handleStartingWordChange}></input>
           </div>
           <div className='form-input'>
             <label>Enter your desired word</label><br/>
