@@ -1,7 +1,7 @@
 # wiki-speedrun
 **live demo:** https://wiki-speedrun.web.app/
 ## Description
-AI agent that, by providing any wikipedia page and any desired word, find a hyperlink path starting from this wikipedia page to the wikipedia page of the provided word.    
+AI agent that, by providing any startind and desired words, find a hyperlink path from the starting word to the wikipedia page of the desired word.    
 This agent is mimicking the famous [wikipedia game](https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game).  
 It uses a [semantic embedding model](https://api-inference.huggingface.co/models/SeyedAli/Multilingual-Text-Semantic-Search-Siamese-BERT-V1) from huggingface, and scraping the wikipedia pages.
 
