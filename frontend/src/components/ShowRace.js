@@ -9,7 +9,10 @@ import {
     Tooltip,
     Legend,
   } from 'chart.js';
- import { Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 ChartJS.register(
   CategoryScale,
@@ -45,7 +48,10 @@ function ShowRace({ chartData, runAgain }) {
 
         <div className='wordList'> 
           {chartData.labels.map((label, index) => 
-            <div> {label} - {chartData.datasets[0].data[index].toFixed(2)}<br/> </div>)}
+          <span>
+            <a href={"https://en.wikipedia.org/wiki/"+label} target="_blank">{label} </a>
+              {'('}{chartData.datasets[0].data[index].toFixed(2)}{') '}
+            {index !== (chartData.labels.length - 1) && <FontAwesomeIcon icon={faArrowRight}/>} </span>)}
         </div>
 
         <div onClick={runAgain} className='start-btn'>Run again</div>

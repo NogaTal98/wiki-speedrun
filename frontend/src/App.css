@@ -118,7 +118,5 @@ input {
 
 .wordList {
   text-align: left;
-  width: 70%;
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
+  width: 80%;
 }
