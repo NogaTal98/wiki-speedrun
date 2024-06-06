@@ -34,7 +34,6 @@ function App() {
     setDesiredWord(event.target.value);
   }
 
-
   const startRace = () => {
     if (startingWord === "" || desiredWord === "") {
       alert("starting or desired word is empty");
@@ -116,7 +115,8 @@ function App() {
     <div className="App">
       <div className='page'>
         <img src={logo} className="logo"/>
-        {currentPage === 0 ? <InputPage handleStartingWordChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
+        {currentPage === 0 ? 
+        <InputPage handleStartingWordChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
         <ShowRace chartData={chartData} runAgain={runAgain}/> }
       </div>
     </div>

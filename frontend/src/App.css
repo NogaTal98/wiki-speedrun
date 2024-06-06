@@ -115,3 +115,10 @@ input {
 .logo {
   width: 20%;
 }
+
+.wordList {
+  text-align: left;
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
