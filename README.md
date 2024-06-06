@@ -21,7 +21,7 @@ flask --app game_flow.py run
 ```
 
 ### Run the frontend
-From the terminal run the following command:
+From the fronend dir run the following command:
 ```bash
 npm start
 ```
