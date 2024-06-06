@@ -28,7 +28,7 @@ let options = {
   plugins: {
     title: {
       display: true,
-      text: 'Hover with the mouse to see the words'
+      text: 'Hover the dots in the graph with the mouse to see the words'
     },
     legend: {
       display: false

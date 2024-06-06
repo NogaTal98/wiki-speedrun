@@ -6,7 +6,7 @@ function InputPage({handleStartingWordChange, handleDesiredWordChange, startRace
         <div className='title'>
           Wiki Speed Run!
           <div className='description'>
-              An AI agent that mimicks the famous wikipedia game
+              An AI agent that solves the famous wikipedia game
           </div>
         </div>
         <div className='form'>
