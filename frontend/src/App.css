@@ -120,3 +120,11 @@ input {
   text-align: left;
   width: 80%;
 }
+
+.goodResult {
+  color: rgb(20, 156, 20);
+}
+
+.badResult {
+  color: rgb(156, 20, 20);
+}
