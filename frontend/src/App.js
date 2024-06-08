@@ -1,8 +1,9 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InputPage from './components/InputPage';
 import ShowRace from './components/ShowRace';
 import logo from './wiki-speedrun-logo.png';
+import { NUM_OF_ITERATIONS } from './constants';
 
 function App() {
   const preUrl = "https://en.wikipedia.org/wiki/";
@@ -11,7 +12,6 @@ function App() {
   const [desiredWord, setDesiredWord] = useState("");
   const [history, setHistory] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-
   const [chartData, setChartData] = useState({
     labels: [], 
     datasets: [
@@ -24,8 +24,6 @@ function App() {
     ]
   });
 
-  const NUM_OF_ITERATIONS = 20;
-
   const handleUrlChange = (event) => {
     setUrl(event.target.value);
   }
@@ -34,7 +32,7 @@ function App() {
     setDesiredWord(event.target.value);
   }
 
-  const startRace = () => {
+  const startRace = async () => {
     if (startingWord === "" || desiredWord === "") {
       alert("starting or desired word is empty");
       return;
@@ -74,14 +72,14 @@ function App() {
           // update chart data
           let newChartData = chartData;
           newChartData.labels = history.map((word) => word.word);
-          if (history.length == 2) {
+          if (history.length === 2) {
             newChartData.datasets[0].data.push(history[0].rate, newWord.rate);
           } else {
             newChartData.datasets[0].data.push(newWord.rate);
           }
           setChartData(newChartData);
 
-          if (newWord.word.toLowerCase() == desiredWord.toLowerCase()) {
+          if (newWord.word.toLowerCase() === desiredWord.toLowerCase()) {
             runTimes = NUM_OF_ITERATIONS+1;
           }
 
@@ -114,7 +112,7 @@ function App() {
   return (
     <div className="App">
       <div className='page'>
-        <img src={logo} className="logo"/>
+        <img src={logo} className="logo" alt='logo'/>
         {currentPage === 0 ? 
         <InputPage handleStartingWordChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
         <ShowRace chartData={chartData} runAgain={runAgain}/> }

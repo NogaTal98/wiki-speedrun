@@ -1,0 +1,1 @@
+export const NUM_OF_ITERATIONS = 20;
