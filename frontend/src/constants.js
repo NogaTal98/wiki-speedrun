@@ -1,1 +1,1 @@
-export const NUM_OF_ITERATIONS = 20;
+export const NUM_OF_ITERATIONS = 25;
