@@ -1,4 +1,5 @@
 import React from "react";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import { NUM_OF_ITERATIONS } from '../constants';
 
 import {
@@ -58,7 +59,12 @@ const renderSuccess = (chartData) => {
 function ShowRace({ chartData, runAgain }) {
     return (
       <div className="show-page">
-        <Line data={chartData} options={options} />
+        {chartData.labels.length === 0 ? <ClimbingBoxLoader
+          color="#000000"
+          true
+          size={"5vh"}
+          speedMultiplier={1}/> :
+        <Line data={chartData} options={options} />}
 
         <div className='wordList'> 
           {chartData.labels.map((label, index) => 
