@@ -65,6 +65,7 @@ function ShowRace({ chartData, runAgain }) {
           size={"5vh"}
           speedMultiplier={1}/> :
         <Line data={chartData} options={options} />}
+        
 
         <div className='wordList'> 
           {chartData.labels.map((label, index) => 

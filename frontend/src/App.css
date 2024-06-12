@@ -18,10 +18,9 @@
 }
 
 .page {
-  height: 80vh;
+  height: 93vh;
   width: 40vw;
   border-radius: 2.5%;
-  margin-top: 3vh;
   padding: 2vh;
 
   display: flex;
@@ -68,7 +67,6 @@
 
 .form-input {
   margin: 3%;
-  
 }
 
 .start-btn {
@@ -113,12 +111,14 @@ input {
 }
 
 .logo {
-  width: 20%;
+  height: 8vh;
 }
 
 .wordList {
   text-align: left;
   width: 80%;
+  height: 20vh;
+  overflow-y: auto;
 }
 
 .goodResult {
