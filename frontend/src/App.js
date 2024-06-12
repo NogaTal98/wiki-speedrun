@@ -24,12 +24,13 @@ function App() {
     ]
   });
 
-  const handleUrlChange = (event) => {
-    setUrl(event.target.value);
-  }
-
-  const handleDesiredWordChange = (event) => {
-    setDesiredWord(event.target.value);
+  const removeSpaceAtEndAndSetWord = (event, setFunction) => {
+    if (event.target.value[event.target.value.length - 1] === ' ') {
+      setFunction(event.target.value.slice(0, -1));
+    }
+    else {
+      setFunction(event.target.value);
+    }
   }
 
   const startRace = async () => {
@@ -114,7 +115,10 @@ function App() {
       <div className='page'>
         <img src={logo} className="logo" alt='logo'/>
         {currentPage === 0 ? 
-        <InputPage handleStartingWordChange={handleUrlChange} handleDesiredWordChange={handleDesiredWordChange} startRace={startRace}/> :
+        <InputPage 
+          handleStartingWordChange={(event) => removeSpaceAtEndAndSetWord(event, setUrl)} 
+          handleDesiredWordChange={(event) => removeSpaceAtEndAndSetWord(event, setDesiredWord)} 
+          startRace={startRace}/> :
         <ShowRace chartData={chartData} runAgain={runAgain}/> }
       </div>
     </div>
